@@ -32,6 +32,8 @@ def load_jsonrpc_service(schema_dir: str):
         "ListFunds",
         "SendPay",
         "ListChannels",
+        "ListPeerChannels",
+        # "ListClosedChannels",
         "AddGossip",
         "AutoCleanInvoice",
         "CheckMessage",
