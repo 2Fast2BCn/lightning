@@ -578,6 +578,12 @@
         "ListchannelsResponse": {
             "ListChannels.channels[]": 1
         },
+        "ListpeerchannelsRequest": {
+            "ListPeerChannels.id": 1
+        },
+        "ListpeerchannelsResponse": {
+            "ListPeerChannels.channels[]": 1
+        },
         "ListdatastoreDatastore": {
             "ListDatastore.datastore[].generation": 2,
             "ListDatastore.datastore[].hex": 3,
