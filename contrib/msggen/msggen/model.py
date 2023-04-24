@@ -7,6 +7,11 @@ logger = logging.getLogger(__name__)
 
 def path2type(path):
     typename = "".join([s.capitalize() for s in path.replace("[]", "").split(".")])
+    separator = '/'
+    index = typename.find(separator)
+    while index != -1:
+        typename = typename[:index-1].capitalize() + typename[index]
+        index = typename.find(separator)
     return typename
 
 
@@ -218,8 +223,7 @@ class EnumVariant(Field):
         index = self.variant.find(separator)
         if index != -1:
             return self.variant[:index-1].replace(' ', '_').replace('-', '_').upper()
-        else:
-            return self.variant.replace(' ', '_').replace('-', '_').upper()
+        return self.variant.replace(' ', '_').replace('-', '_').upper()
 
 
 class EnumField(Field):
