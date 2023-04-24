@@ -214,7 +214,12 @@ class EnumVariant(Field):
         return self.variant
 
     def normalized(self):
-        return self.variant.replace(' ', '_').replace('-', '_').upper()
+        separator = '/'
+        index = self.variant.find(separator)
+        if index != -1:
+            return self.variant[:index-1].replace(' ', '_').replace('-', '_').upper()
+        else:
+            return self.variant.replace(' ', '_').replace('-', '_').upper()
 
 
 class EnumField(Field):
