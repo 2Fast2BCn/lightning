@@ -46,7 +46,7 @@ overrides = {
     'ListTransactions.transactions[].type[]': None,
     'ListClosedChannels.closedchannels[].opener': "ChannelSide",
     'ListClosedChannels.closedchannels[].closer': "ChannelSide",
-    'ListClosedChannels.closedchannels[].channel_type.names[]': "ChannelType",
+    'ListClosedChannels.closedchannels[].channel_type.names[]': "string",
 }
 
 
