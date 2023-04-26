@@ -777,15 +777,15 @@ impl Serialize for TlvStream {
 #[derive(Copy, Clone, Serialize, Deserialize, Debug)]
 #[allow(non_camel_case_types)]
 pub enum ChannelType {
-    #[serde(rename = "static_remotekey/even")]
+    #[serde(rename = "static_remotekey_even")]
     STATIC_REMOTEKEY_EVEN = 0,
-    #[serde(rename = "anchor_outputs/even")]
+    #[serde(rename = "anchor_outputs_even")]
     ANCHOR_OUTPUTS_EVEN = 1,
-    #[serde(rename = "anchors_zero_fee_htlc_tx/even")]
+    #[serde(rename = "anchors_zero_fee_htlc_tx_even")]
     ANCHORS_ZERO_FEE_HTLC_TX_EVEN = 2,
-    #[serde(rename = "scid_alias/even")]
+    #[serde(rename = "scid_alias_even")]
     SCID_ALIAS_EVEN = 3,
-    #[serde(rename = "zeroconf/even")]
+    #[serde(rename = "zeroconf_even")]
     ZEROCONF_EVEN = 4,
 }
 
@@ -800,6 +800,26 @@ impl TryFrom<i32> for ChannelType {
             3 => Ok(ChannelType::SCID_ALIAS_EVEN),
             4 => Ok(ChannelType::ZEROCONF_EVEN),
             _ => Err(anyhow!("Invalid channel type {}", value)),
+        }
+    }
+}
+
+impl TryFrom<&str> for ChannelType {
+    type Error = Error;
+    fn try_from(s: &str) -> Result<ChannelType> {
+        let s = s.to_lowercase();
+        if s.starts_with("static_remotekey") {
+            Ok(ChannelType::STATIC_REMOTEKEY_EVEN)
+        } else if s.starts_with("anchor_outputs") {
+            Ok(ChannelType::ANCHOR_OUTPUTS_EVEN)
+        } else if s.starts_with("anchors_zero_fee_htlc_tx") {
+            Ok(ChannelType::ANCHORS_ZERO_FEE_HTLC_TX_EVEN)
+        } else if s.starts_with("scid_alias") {
+            Ok(ChannelType::SCID_ALIAS_EVEN)
+        } else if s.starts_with("zeroconf") {
+            Ok(ChannelType::ZEROCONF_EVEN)
+        } else {
+            Err(anyhow!("Unable to parse channel from string: {}", s))
         }
     }
 }

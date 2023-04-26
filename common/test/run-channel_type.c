@@ -125,12 +125,12 @@ int main(int argc, char *argv[])
 
 	assert_names_eq(channel_type_name(tmpctx, channel_type_none(tmpctx)), "");
 	assert_names_eq(channel_type_name(tmpctx, channel_type_static_remotekey(tmpctx)),
-			"static_remotekey/even");
+			"static_remotekey_even");
 	assert_names_eq(channel_type_name(tmpctx, channel_type_anchor_outputs(tmpctx)),
-			"static_remotekey/even anchor_outputs/even");
+			"static_remotekey_even anchor_outputs_even");
 
 	t.features = tal_arr(tmpctx, u8, 0);
 	set_feature_bit(&t.features, 1000);
-	assert_names_eq(channel_type_name(tmpctx, &t), "unknown_1000/even");
+	assert_names_eq(channel_type_name(tmpctx, &t), "unknown_1000_even");
 	common_shutdown();
 }
