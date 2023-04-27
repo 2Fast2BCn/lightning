@@ -381,7 +381,10 @@ class GrpcConverterGenerator(IGenerator):
         components = snake_str.split('_')
         # We capitalize the first letter of each component except the first one
         # with the 'title' method and join them together.
-        return components[0] + ''.join(x.title() for x in components[1:])
+        result = components[0]
+        for x in components[1:]:
+            result += x[0].upper() + x[1:]
+        return result
 
     def generate_requests(self, service):
         for meth in service.methods:
@@ -458,7 +461,7 @@ class GrpcUnconverterGenerator(GrpcConverterGenerator):
                     'hex': f'hex::encode(s)',
                     'signature': f'hex::encode(s)',
                     'bip340sig': f'hex::encode(s)',
-                    'hash': f'Sha256::from_slice(&c.{name}).unwrap()',
+                    'hash': f'Sha256::from_slice(&s).unwrap()',
                     'pubkey': f's.try_into().unwrap()',
                     'secret': f's.try_into().unwrap()',
                     'u32': f's'
