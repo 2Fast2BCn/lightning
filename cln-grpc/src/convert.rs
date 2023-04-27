@@ -1216,7 +1216,7 @@ impl From<responses::DecodeInvoice_paths> for pb::DecodeInvoicePaths {
 impl From<responses::DecodeInvoice_fallbacks> for pb::DecodeInvoiceFallbacks {
     fn from(c: responses::DecodeInvoice_fallbacks) -> Self {
         Self {
-            version: c.version, // Rule #2 for type u8?
+            version: c.version, // Rule #2 for type u32?
             hex: c.hex.map(|v| hex::decode(v).unwrap()), // Rule #2 for type hex?
             address: c.address, // Rule #2 for type string?
         }
@@ -1337,7 +1337,7 @@ impl From<responses::DecodeResponse> for pb::DecodeResponse {
             routes: c.routes.map(|rl| rl.into()), // Rule #2 for type Routes?
             extra: c.extra.map(|arr| arr.into_iter().map(|i| i.into()).collect()).unwrap_or(vec![]), // Rule #3
             unique_id: c.unique_id, // Rule #2 for type string?
-            version: c.version, // Rule #2 for type string?
+            version: c.version, // Rule #2 for type u32?
             string: c.string, // Rule #2 for type string?
             restrictions: c.restrictions.map(|arr| arr.into_iter().map(|i| i.into()).collect()).unwrap_or(vec![]), // Rule #3
             warning_rune_invalid_utf8: c.warning_rune_invalid_utf8, // Rule #2 for type string?
@@ -4143,7 +4143,7 @@ impl From<pb::DecodeInvoicePaths> for responses::DecodeInvoice_paths {
 impl From<pb::DecodeInvoiceFallbacks> for responses::DecodeInvoice_fallbacks {
     fn from(c: pb::DecodeInvoiceFallbacks) -> Self {
         Self {
-            version: c.version, // Rule #1 for type u8?
+            version: c.version, // Rule #1 for type u32?
             hex: c.hex.map(|v| hex::encode(v)), // Rule #1 for type hex?
             address: c.address, // Rule #1 for type string?
         }
@@ -4264,7 +4264,7 @@ impl From<pb::DecodeResponse> for responses::DecodeResponse {
             routes: c.routes.map(|rl| rl.into()), // Rule #1 for type Routes?
             extra: Some(c.extra.into_iter().map(|s| s.into()).collect()), // Rule #4
             unique_id: c.unique_id, // Rule #1 for type string?
-            version: c.version, // Rule #1 for type string?
+            version: c.version, // Rule #1 for type u32?
             string: c.string, // Rule #1 for type string?
             restrictions: Some(c.restrictions.into_iter().map(|s| s.into()).collect()), // Rule #4
             warning_rune_invalid_utf8: c.warning_rune_invalid_utf8, // Rule #1 for type string?

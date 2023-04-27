@@ -16,7 +16,6 @@ logger = logging.getLogger(__name__)
 keywords = ["in", "type"]
 
 # Manual overrides for some of the auto-generated types for paths
-# Manual overrides for some of the auto-generated types for paths
 overrides = {
     'ListPeers.peers[].channels[].state_changes[].old_state': "ChannelState",
     'ListPeers.peers[].channels[].state_changes[].new_state': "ChannelState",

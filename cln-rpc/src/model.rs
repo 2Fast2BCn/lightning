@@ -3799,7 +3799,7 @@ pub mod responses {
 	#[derive(Clone, Debug, Deserialize, Serialize)]
 	pub struct DecodeInvoice_fallbacks {
 	    #[serde(skip_serializing_if = "Option::is_none")]
-	    pub version: Option<u8>,
+	    pub version: Option<u32>,
 	    #[serde(skip_serializing_if = "Option::is_none")]
 	    pub hex: Option<String>,
 	    #[serde(skip_serializing_if = "Option::is_none")]
@@ -3981,7 +3981,7 @@ pub mod responses {
 	    #[serde(skip_serializing_if = "Option::is_none")]
 	    pub unique_id: Option<String>,
 	    #[serde(skip_serializing_if = "Option::is_none")]
-	    pub version: Option<String>,
+	    pub version: Option<u32>,
 	    #[serde(skip_serializing_if = "Option::is_none")]
 	    pub string: Option<String>,
 	    #[serde(skip_serializing_if = "crate::is_none_or_empty")]

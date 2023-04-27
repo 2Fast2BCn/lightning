@@ -1368,7 +1368,7 @@ message DecodeResponse {
 	optional Routes routes = 68;
 	repeated DecodeExtra extra = 69;
 	optional string unique_id = 70;
-	optional string version = 71;
+	optional uint32 version = 71;
 	optional string string = 72;
 	repeated DecodeRestrictions restrictions = 73;
 	optional string warning_rune_invalid_utf8 = 74;
