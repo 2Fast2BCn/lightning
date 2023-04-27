@@ -492,20 +492,20 @@
             "Decode.routes[][].pubkey": 1,
             "Decode.routes[][].short_channel_id": 2
         },
-        "DecodeUnknownInvoiceRequestTlvs": {
-            "Decode.unknown.invoice.request.tlvs[].length": 2,
-            "Decode.unknown.invoice.request.tlvs[].type": 1,
-            "Decode.unknown.invoice.request.tlvs[].value": 3
+        "DecodeUnknown_invoice_request_tlvs": {
+            "Decode.unknown_invoice_request_tlvs[].length": 2,
+            "Decode.unknown_invoice_request_tlvs[].type": 1,
+            "Decode.unknown_invoice_request_tlvs[].value": 3
         },
-        "DecodeUnknownInvoiceTlvs": {
-            "Decode.unknown.invoice.tlvs[].length": 2,
-            "Decode.unknown.invoice.tlvs[].type": 1,
-            "Decode.unknown.invoice.tlvs[].value": 3
+        "DecodeUnknown_invoice_tlvs": {
+            "Decode.unknown_invoice_tlvs[].length": 2,
+            "Decode.unknown_invoice_tlvs[].type": 1,
+            "Decode.unknown_invoice_tlvs[].value": 3
         },
-        "DecodeUnknownOfferTlvs": {
-            "Decode.unknown.offer.tlvs[].length": 2,
-            "Decode.unknown.offer.tlvs[].type": 1,
-            "Decode.unknown.offer.tlvs[].value": 3
+        "DecodeUnknown_offer_tlvs": {
+            "Decode.unknown_offer_tlvs[].length": 2,
+            "Decode.unknown_offer_tlvs[].type": 1,
+            "Decode.unknown_offer_tlvs[].value": 3
         },
         "DecodepayExtra": {
             "DecodePay.extra[].data": 2,
