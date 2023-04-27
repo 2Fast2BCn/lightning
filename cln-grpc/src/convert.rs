@@ -1334,7 +1334,7 @@ impl From<responses::DecodeResponse> for pb::DecodeResponse {
             min_final_cltv_expiry: c.min_final_cltv_expiry, // Rule #2 for type u32?
             payment_secret: c.payment_secret.map(|v| v.to_vec()), // Rule #2 for type secret?
             payment_metadata: c.payment_metadata.map(|v| hex::decode(v).unwrap()), // Rule #2 for type hex?
-            routes: c.routes.map(|rl| rl.into()), // Rule #2 for type RoutehintList?
+            routes: c.routes.map(|rl| rl.into()), // Rule #2 for type Routes?
             extra: c.extra.map(|arr| arr.into_iter().map(|i| i.into()).collect()).unwrap_or(vec![]), // Rule #3
             unique_id: c.unique_id, // Rule #2 for type string?
             version: c.version, // Rule #2 for type string?
@@ -1385,7 +1385,7 @@ impl From<responses::DecodepayResponse> for pb::DecodepayResponse {
             features: c.features.map(|v| hex::decode(v).unwrap()), // Rule #2 for type hex?
             payment_metadata: c.payment_metadata.map(|v| hex::decode(v).unwrap()), // Rule #2 for type hex?
             fallbacks: c.fallbacks.map(|arr| arr.into_iter().map(|i| i.into()).collect()).unwrap_or(vec![]), // Rule #3
-            routes: c.routes.map(|rl| rl.into()), // Rule #2 for type RoutehintList?
+            routes: c.routes.map(|rl| rl.into()), // Rule #2 for type Routes?
             extra: c.extra.map(|arr| arr.into_iter().map(|i| i.into()).collect()).unwrap_or(vec![]), // Rule #3
         }
     }
@@ -3117,7 +3117,8 @@ impl From<pb::ListpeersPeersChannels> for responses::ListpeersPeersChannels {
             our_to_self_delay: c.our_to_self_delay, // Rule #1 for type u32?
             max_accepted_htlcs: c.max_accepted_htlcs, // Rule #1 for type u32?
             alias: c.alias.map(|v| v.into()),
-state_changes: None,            status: Some(c.status.into_iter().map(|s| s.into()).collect()), // Rule #4
+            state_changes: None,
+            status: Some(c.status.into_iter().map(|s| s.into()).collect()), // Rule #4
             in_payments_offered: c.in_payments_offered, // Rule #1 for type u64?
             in_offered_msat: c.in_offered_msat.map(|a| a.into()), // Rule #1 for type msat?
             in_payments_fulfilled: c.in_payments_fulfilled, // Rule #1 for type u64?
@@ -3274,7 +3275,8 @@ impl From<pb::ListpeerchannelsChannels> for responses::ListpeerchannelsChannels 
             our_to_self_delay: c.our_to_self_delay, // Rule #1 for type u32?
             max_accepted_htlcs: c.max_accepted_htlcs, // Rule #1 for type u32?
             alias: c.alias.map(|v| v.into()),
-state_changes: None,            status: Some(c.status.into_iter().map(|s| s.into()).collect()), // Rule #4
+            state_changes: None,
+            status: Some(c.status.into_iter().map(|s| s.into()).collect()), // Rule #4
             in_payments_offered: c.in_payments_offered, // Rule #1 for type u64?
             in_offered_msat: c.in_offered_msat.map(|a| a.into()), // Rule #1 for type msat?
             in_payments_fulfilled: c.in_payments_fulfilled, // Rule #1 for type u64?
@@ -4259,7 +4261,7 @@ impl From<pb::DecodeResponse> for responses::DecodeResponse {
             min_final_cltv_expiry: c.min_final_cltv_expiry, // Rule #1 for type u32?
             payment_secret: c.payment_secret.map(|v| v.try_into().unwrap()), // Rule #1 for type secret?
             payment_metadata: c.payment_metadata.map(|v| hex::encode(v)), // Rule #1 for type hex?
-            routes: c.routes.map(|rl| rl.into()), // Rule #1 for type RoutehintList?
+            routes: c.routes.map(|rl| rl.into()), // Rule #1 for type Routes?
             extra: Some(c.extra.into_iter().map(|s| s.into()).collect()), // Rule #4
             unique_id: c.unique_id, // Rule #1 for type string?
             version: c.version, // Rule #1 for type string?
@@ -4310,7 +4312,7 @@ impl From<pb::DecodepayResponse> for responses::DecodepayResponse {
             features: c.features.map(|v| hex::encode(v)), // Rule #1 for type hex?
             payment_metadata: c.payment_metadata.map(|v| hex::encode(v)), // Rule #1 for type hex?
             fallbacks: Some(c.fallbacks.into_iter().map(|s| s.into()).collect()), // Rule #4
-            routes: c.routes.map(|rl| rl.into()), // Rule #1 for type RoutehintList?
+            routes: c.routes.map(|rl| rl.into()), // Rule #1 for type Routes?
             extra: Some(c.extra.into_iter().map(|s| s.into()).collect()), // Rule #4
         }
     }

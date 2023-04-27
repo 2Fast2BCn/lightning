@@ -342,6 +342,7 @@ class GrpcConverterGenerator(IGenerator):
                     'outpoint?': f'c.{name}.map(|o|o.into())',
                     'TlvStream?': f'c.{name}.map(|s| s.into())',
                     'RoutehintList?': f'c.{name}.map(|rl| rl.into())',
+                    'Routes?': f'c.{name}.map(|rl| rl.into())',
 
 
                 }.get(
@@ -454,7 +455,7 @@ class GrpcUnconverterGenerator(GrpcConverterGenerator):
                 if typ in ["ListtransactionsTransactionsType"]:
                     continue
                 if name == 'state_changes':
-                    self.write(f" state_changes: None,")
+                    self.write(f"state_changes: None,\n", numindent=3)
                     continue
                     
                 if not f.optional:
@@ -501,6 +502,7 @@ class GrpcUnconverterGenerator(GrpcConverterGenerator):
                     'feerate?': f'c.{name}.map(|a| a.into())',
                     'outpoint?': f'c.{name}.map(|a| a.into())',
                     'RoutehintList?': f'c.{name}.map(|rl| rl.into())',
+                    'Routes?': f'c.{name}.map(|rl| rl.into())',
                     'short_channel_id': f'cln_rpc::primitives::ShortChannelId::from_str(&c.{name}).unwrap()',
                     'short_channel_id?': f'c.{name}.map(|v| cln_rpc::primitives::ShortChannelId::from_str(&v).unwrap())',
                     'secret': f'c.{name}.try_into().unwrap()',

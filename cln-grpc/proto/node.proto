@@ -1365,7 +1365,7 @@ message DecodeResponse {
 	optional uint32 min_final_cltv_expiry = 65;
 	optional bytes payment_secret = 66;
 	optional bytes payment_metadata = 67;
-	optional RoutehintList routes = 68;
+	optional Routes routes = 68;
 	repeated DecodeExtra extra = 69;
 	optional string unique_id = 70;
 	optional string version = 71;
@@ -1479,7 +1479,7 @@ message DecodepayResponse {
 	optional bytes features = 12;
 	optional bytes payment_metadata = 13;
 	repeated DecodepayFallbacks fallbacks = 14;
-	optional RoutehintList routes = 15;
+	optional Routes routes = 15;
 	repeated DecodepayExtra extra = 16;
 }
 

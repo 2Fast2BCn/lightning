@@ -3975,7 +3975,7 @@ pub mod responses {
 	    #[serde(skip_serializing_if = "Option::is_none")]
 	    pub payment_metadata: Option<String>,
 	    #[serde(skip_serializing_if = "Option::is_none")]
-	    pub routes: Option<RoutehintList>,
+	    pub routes: Option<Routes>,
 	    #[serde(skip_serializing_if = "crate::is_none_or_empty")]
 	    pub extra: Option<Vec<DecodeExtra>>,
 	    #[serde(skip_serializing_if = "Option::is_none")]
@@ -4077,7 +4077,7 @@ pub mod responses {
 	    #[serde(skip_serializing_if = "crate::is_none_or_empty")]
 	    pub fallbacks: Option<Vec<DecodepayFallbacks>>,
 	    #[serde(skip_serializing_if = "Option::is_none")]
-	    pub routes: Option<RoutehintList>,
+	    pub routes: Option<Routes>,
 	    #[serde(skip_serializing_if = "crate::is_none_or_empty")]
 	    pub extra: Option<Vec<DecodepayExtra>>,
 	}
