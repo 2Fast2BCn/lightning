@@ -288,6 +288,7 @@ class PrimitiveField(Field):
         "string",
         "pubkey",
         "signature",
+        "bip340sig",
         "msat",
         "msat_or_any",
         "msat_or_all",
@@ -377,6 +378,7 @@ RoutehintListField = PrimitiveField(
     added=None,
     deprecated=None
 )
+
 # TlvStreams are special, they don't have preset dict-keys, rather
 # they can specify `u64` keys pointing to hex payloads. So the schema
 # has to rely on additionalProperties to make it work.

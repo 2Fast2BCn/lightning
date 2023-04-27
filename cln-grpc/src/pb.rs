@@ -267,7 +267,7 @@ impl From<cln_rpc::primitives::Route> for Route {
 impl From<cln_rpc::primitives::Routes> for Routes {
     fn from(c: cln_rpc::primitives::Routes) -> Self {
         Self {
-            hints: c.hints.into_iter().map(|e| e.into()).collect(),
+            routes: c.routes.into_iter().map(|e| e.into()).collect(),
         }
     }
 }

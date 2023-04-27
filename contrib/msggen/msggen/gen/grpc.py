@@ -17,6 +17,7 @@ typemap = {
     'pubkey': 'bytes',
     'short_channel_id': 'string',
     'signature': 'bytes',
+    'bip340sig': 'bytes',
     'string': 'string',
     'txid': 'bytes',
     'u8': 'uint32',  # Yep, this is the smallest integer type in grpc...
@@ -296,6 +297,8 @@ class GrpcConverterGenerator(IGenerator):
                 # array. The current item is called `i`
                 mapping = {
                     'hex': f'hex::decode(i).unwrap()',
+                    'bip340sig': f'hex::decode(i).unwrap()',
+                    'signature': f'hex::decode(i).unwrap()',
                     'secret': f'i.to_vec()',
                 }.get(typ, f'i.into()')
 
@@ -325,6 +328,10 @@ class GrpcConverterGenerator(IGenerator):
                     'pubkey?': f'c.{name}.map(|v| v.serialize().to_vec())',
                     'hex': f'hex::decode(&c.{name}).unwrap()',
                     'hex?': f'c.{name}.map(|v| hex::decode(v).unwrap())',
+                    'bip340sig': f'hex::decode(&c.{name}).unwrap()',
+                    'bip340sig?': f'c.{name}.map(|v| hex::decode(v).unwrap())',
+                    'signature': f'hex::decode(&c.{name}).unwrap()',
+                    'signature?': f'c.{name}.map(|v| hex::decode(v).unwrap())',
                     'txid': f'hex::decode(&c.{name}).unwrap()',
                     'txid?': f'c.{name}.map(|v| hex::decode(v).unwrap())',
                     'short_channel_id': f'c.{name}.to_string()',
@@ -447,6 +454,8 @@ class GrpcUnconverterGenerator(GrpcConverterGenerator):
                 typ = f.itemtype.typename
                 mapping = {
                     'hex': f'hex::encode(s)',
+                    'signature': f'hex::encode(s)',
+                    'bip340sig': f'hex::encode(s)',
                     'u32': f's',
                     'secret': f's.try_into().unwrap()'
                 }.get(typ, f's.into()')
@@ -489,6 +498,10 @@ class GrpcUnconverterGenerator(GrpcConverterGenerator):
                     'u16?': f'c.{name}.map(|v| v as u16)',
                     'hex': f'hex::encode(&c.{name})',
                     'hex?': f'c.{name}.map(|v| hex::encode(v))',
+                    'signature': f'hex::encode(&c.{name})',
+                    'signature?': f'c.{name}.map(|v| hex::encode(v))',
+                    'bip340sig': f'hex::encode(&c.{name})',
+                    'bip340sig?': f'c.{name}.map(|v| hex::encode(v))',
                     'txid?': f'c.{name}.map(|v| hex::encode(v))',
                     'pubkey': f'PublicKey::from_slice(&c.{name}).unwrap()',
                     'pubkey?': f'c.{name}.map(|v| PublicKey::from_slice(&v).unwrap())',

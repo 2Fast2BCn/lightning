@@ -1377,7 +1377,7 @@ impl From<responses::DecodepayResponse> for pb::DecodepayResponse {
             payee: c.payee.map(|v| v.serialize().to_vec()), // Rule #2 for type pubkey?
             amount_msat: c.amount_msat.map(|f| f.into()), // Rule #2 for type msat?
             payment_hash: c.payment_hash.map(|v| v.to_vec()), // Rule #2 for type hash?
-            signature: c.signature, // Rule #2 for type signature?
+            signature: c.signature.map(|v| hex::decode(v).unwrap()), // Rule #2 for type signature?
             description: c.description, // Rule #2 for type string?
             description_hash: c.description_hash.map(|v| v.to_vec()), // Rule #2 for type hash?
             min_final_cltv_expiry: c.min_final_cltv_expiry, // Rule #2 for type u32?
@@ -4304,7 +4304,7 @@ impl From<pb::DecodepayResponse> for responses::DecodepayResponse {
             payee: c.payee.map(|v| PublicKey::from_slice(&v).unwrap()), // Rule #1 for type pubkey?
             amount_msat: c.amount_msat.map(|a| a.into()), // Rule #1 for type msat?
             payment_hash: c.payment_hash.map(|v| Sha256::from_slice(&v).unwrap()), // Rule #1 for type hash?
-            signature: c.signature, // Rule #1 for type signature?
+            signature: c.signature.map(|v| hex::encode(v)), // Rule #1 for type signature?
             description: c.description, // Rule #1 for type string?
             description_hash: c.description_hash.map(|v| Sha256::from_slice(&v).unwrap()), // Rule #1 for type hash?
             min_final_cltv_expiry: c.min_final_cltv_expiry, // Rule #1 for type u32?

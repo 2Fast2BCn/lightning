@@ -35,6 +35,7 @@ class Grpc2PyGenerator(IGenerator):
             'pubkey': "hexlify(m.{name})",
             'secret': "hexlify(m.{name})",
             'signature': "hexlify(m.{name})",
+            'bip340sig': "hexlify(m.{name})",
             'txid': "hexlify(m.{name})",
             'hash': "hexlify(m.{name})",
             'string': "m.{name}",
@@ -132,7 +133,7 @@ class Grpc2PyGenerator(IGenerator):
 
                 rhs = self.converters[typ].format(name=f.name)
 
-                self.write(f'        "{name}": {rhs},  # PrimitiveField in generate_composite {field.path}\n', cleanup=False)
+                self.write(f'        "{name}": {rhs},  # PrimitiveField in generate_composite\n', cleanup=False)
 
             elif isinstance(f, ArrayField) and isinstance(f.itemtype, PrimitiveField):
                 rhs = self.converters[f.itemtype.typename].format(name=name)

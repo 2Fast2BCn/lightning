@@ -52,6 +52,7 @@ typemap = {
     'pubkey': 'PublicKey',
     'short_channel_id': 'ShortChannelId',
     'signature': 'String',
+    'bip340sig': 'String',
     'string': 'String',
     'txid': 'String',
     'float': 'f32',
