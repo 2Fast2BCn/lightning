@@ -70,6 +70,7 @@
                 "description": "Each bit set in this channel_type",
                 "items": {
                   "type": "u32",
+                  "added": "v23.05",
                   "description": "Bit number"
                 }
               },
@@ -146,7 +147,7 @@
           },
           "last_feerate": {
             "type": "string",
-	    "added": "v23.05",
+	        "added": "v23.05",
             "description": "For inflight opens, the most recent feerate used on the channel open"
           },
           "next_feerate": {

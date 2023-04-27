@@ -24,6 +24,11 @@ class NodeStub(object):
                 request_serializer=node__pb2.ListpeersRequest.SerializeToString,
                 response_deserializer=node__pb2.ListpeersResponse.FromString,
                 )
+        self.ListPeerChannels = channel.unary_unary(
+                '/cln.Node/ListPeerChannels',
+                request_serializer=node__pb2.ListpeerchannelsRequest.SerializeToString,
+                response_deserializer=node__pb2.ListpeerchannelsResponse.FromString,
+                )
         self.ListFunds = channel.unary_unary(
                 '/cln.Node/ListFunds',
                 request_serializer=node__pb2.ListfundsRequest.SerializeToString,
@@ -38,6 +43,11 @@ class NodeStub(object):
                 '/cln.Node/ListChannels',
                 request_serializer=node__pb2.ListchannelsRequest.SerializeToString,
                 response_deserializer=node__pb2.ListchannelsResponse.FromString,
+                )
+        self.ListClosedChannels = channel.unary_unary(
+                '/cln.Node/ListClosedChannels',
+                request_serializer=node__pb2.ListclosedchannelsRequest.SerializeToString,
+                response_deserializer=node__pb2.ListclosedchannelsResponse.FromString,
                 )
         self.AddGossip = channel.unary_unary(
                 '/cln.Node/AddGossip',
@@ -276,6 +286,12 @@ class NodeServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ListPeerChannels(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def ListFunds(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -289,6 +305,12 @@ class NodeServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def ListChannels(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListClosedChannels(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -571,6 +593,11 @@ def add_NodeServicer_to_server(servicer, server):
                     request_deserializer=node__pb2.ListpeersRequest.FromString,
                     response_serializer=node__pb2.ListpeersResponse.SerializeToString,
             ),
+            'ListPeerChannels': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListPeerChannels,
+                    request_deserializer=node__pb2.ListpeerchannelsRequest.FromString,
+                    response_serializer=node__pb2.ListpeerchannelsResponse.SerializeToString,
+            ),
             'ListFunds': grpc.unary_unary_rpc_method_handler(
                     servicer.ListFunds,
                     request_deserializer=node__pb2.ListfundsRequest.FromString,
@@ -585,6 +612,11 @@ def add_NodeServicer_to_server(servicer, server):
                     servicer.ListChannels,
                     request_deserializer=node__pb2.ListchannelsRequest.FromString,
                     response_serializer=node__pb2.ListchannelsResponse.SerializeToString,
+            ),
+            'ListClosedChannels': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListClosedChannels,
+                    request_deserializer=node__pb2.ListclosedchannelsRequest.FromString,
+                    response_serializer=node__pb2.ListclosedchannelsResponse.SerializeToString,
             ),
             'AddGossip': grpc.unary_unary_rpc_method_handler(
                     servicer.AddGossip,
@@ -851,6 +883,23 @@ class Node(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def ListPeerChannels(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/cln.Node/ListPeerChannels',
+            node__pb2.ListpeerchannelsRequest.SerializeToString,
+            node__pb2.ListpeerchannelsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def ListFunds(request,
             target,
             options=(),
@@ -898,6 +947,23 @@ class Node(object):
         return grpc.experimental.unary_unary(request, target, '/cln.Node/ListChannels',
             node__pb2.ListchannelsRequest.SerializeToString,
             node__pb2.ListchannelsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ListClosedChannels(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/cln.Node/ListClosedChannels',
+            node__pb2.ListclosedchannelsRequest.SerializeToString,
+            node__pb2.ListclosedchannelsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
