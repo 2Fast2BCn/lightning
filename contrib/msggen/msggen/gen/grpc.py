@@ -297,9 +297,11 @@ class GrpcConverterGenerator(IGenerator):
                 # array. The current item is called `i`
                 mapping = {
                     'hex': f'hex::decode(i).unwrap()',
-                    'bip340sig': f'hex::decode(i).unwrap()',
                     'signature': f'hex::decode(i).unwrap()',
+                    'bip340sig': f'hex::decode(i).unwrap()',
+                    'pubkey': f'i.serialize().to_vec()',
                     'secret': f'i.to_vec()',
+                    'hash': f'i.to_vec()',
                 }.get(typ, f'i.into()')
 
                 if not f.optional:
@@ -456,8 +458,10 @@ class GrpcUnconverterGenerator(GrpcConverterGenerator):
                     'hex': f'hex::encode(s)',
                     'signature': f'hex::encode(s)',
                     'bip340sig': f'hex::encode(s)',
-                    'u32': f's',
-                    'secret': f's.try_into().unwrap()'
+                    'hash': f'Sha256::from_slice(&c.{name}).unwrap()',
+                    'pubkey': f's.try_into().unwrap()',
+                    'secret': f's.try_into().unwrap()',
+                    'u32': f's'
                 }.get(typ, f's.into()')
 
                 # TODO fix properly

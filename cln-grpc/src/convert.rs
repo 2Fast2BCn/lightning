@@ -1270,7 +1270,7 @@ impl From<responses::DecodeResponse> for pb::DecodeResponse {
             item_type: c.item_type.map(|v| v as i32),
             valid: c.valid, // Rule #2 for type boolean?
             offer_id: c.offer_id.map(|v| hex::decode(v).unwrap()), // Rule #2 for type hex?
-            offer_chains: c.offer_chains.map(|arr| arr.into_iter().map(|i| i.into()).collect()).unwrap_or(vec![]), // Rule #3
+            offer_chains: c.offer_chains.map(|arr| arr.into_iter().map(|i| i.to_vec()).collect()).unwrap_or(vec![]), // Rule #3
             offer_metadata: c.offer_metadata.map(|v| hex::decode(v).unwrap()), // Rule #2 for type hex?
             offer_currency: c.offer_currency, // Rule #2 for type string?
             warning_unknown_offer_currency: c.warning_unknown_offer_currency, // Rule #2 for type string?
@@ -4197,7 +4197,7 @@ impl From<pb::DecodeResponse> for responses::DecodeResponse {
             item_type: c.item_type.map(|v| v.try_into().unwrap()),
             valid: c.valid, // Rule #1 for type boolean?
             offer_id: c.offer_id.map(|v| hex::encode(v)), // Rule #1 for type hex?
-            offer_chains: Some(c.offer_chains.into_iter().map(|s| s.into()).collect()), // Rule #4
+            offer_chains: Some(c.offer_chains.into_iter().map(|s| Sha256::from_slice(&c.offer_chains).unwrap()).collect()), // Rule #4
             offer_metadata: c.offer_metadata.map(|v| hex::encode(v)), // Rule #1 for type hex?
             offer_currency: c.offer_currency, // Rule #1 for type string?
             warning_unknown_offer_currency: c.warning_unknown_offer_currency, // Rule #1 for type string?
