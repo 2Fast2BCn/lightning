@@ -1244,19 +1244,6 @@ impl From<responses::DecodeFallbacks> for pb::DecodeFallbacks {
 }
 
 #[allow(unused_variables,deprecated)]
-impl From<responses::DecodeRoutes> for pb::DecodeRoutes {
-    fn from(c: responses::DecodeRoutes) -> Self {
-        Self {
-            pubkey: c.pubkey.map(|v| v.serialize().to_vec()), // Rule #2 for type pubkey?
-            short_channel_id: c.short_channel_id.map(|v| v.to_string()), // Rule #2 for type short_channel_id?
-            fee_base_msat: c.fee_base_msat.map(|f| f.into()), // Rule #2 for type msat?
-            fee_proportional_millionths: c.fee_proportional_millionths, // Rule #2 for type u32?
-            cltv_expiry_delta: c.cltv_expiry_delta, // Rule #2 for type u32?
-        }
-    }
-}
-
-#[allow(unused_variables,deprecated)]
 impl From<responses::DecodeExtra> for pb::DecodeExtra {
     fn from(c: responses::DecodeExtra) -> Self {
         Self {
@@ -1347,7 +1334,7 @@ impl From<responses::DecodeResponse> for pb::DecodeResponse {
             min_final_cltv_expiry: c.min_final_cltv_expiry, // Rule #2 for type u32?
             payment_secret: c.payment_secret.map(|v| v.to_vec()), // Rule #2 for type secret?
             payment_metadata: c.payment_metadata.map(|v| hex::decode(v).unwrap()), // Rule #2 for type hex?
-            routes: c.routes.map(|arr| arr.into_iter().map(|i| i.into()).collect()).unwrap_or(vec![]), // Rule #3
+            routes: c.routes.map(|rl| rl.into()), // Rule #2 for type RoutehintList?
             extra: c.extra.map(|arr| arr.into_iter().map(|i| i.into()).collect()).unwrap_or(vec![]), // Rule #3
             unique_id: c.unique_id, // Rule #2 for type string?
             version: c.version, // Rule #2 for type string?
@@ -1366,19 +1353,6 @@ impl From<responses::DecodepayFallbacks> for pb::DecodepayFallbacks {
             item_type: c.item_type.map(|v| v as i32),
             addr: c.addr, // Rule #2 for type string?
             hex: c.hex.map(|v| hex::decode(v).unwrap()), // Rule #2 for type hex?
-        }
-    }
-}
-
-#[allow(unused_variables,deprecated)]
-impl From<responses::DecodepayRoutes> for pb::DecodepayRoutes {
-    fn from(c: responses::DecodepayRoutes) -> Self {
-        Self {
-            pubkey: c.pubkey.map(|v| v.serialize().to_vec()), // Rule #2 for type pubkey?
-            short_channel_id: c.short_channel_id.map(|v| v.to_string()), // Rule #2 for type short_channel_id?
-            fee_base_msat: c.fee_base_msat.map(|f| f.into()), // Rule #2 for type msat?
-            fee_proportional_millionths: c.fee_proportional_millionths, // Rule #2 for type u32?
-            cltv_expiry_delta: c.cltv_expiry_delta, // Rule #2 for type u32?
         }
     }
 }
@@ -1411,7 +1385,7 @@ impl From<responses::DecodepayResponse> for pb::DecodepayResponse {
             features: c.features.map(|v| hex::decode(v).unwrap()), // Rule #2 for type hex?
             payment_metadata: c.payment_metadata.map(|v| hex::decode(v).unwrap()), // Rule #2 for type hex?
             fallbacks: c.fallbacks.map(|arr| arr.into_iter().map(|i| i.into()).collect()).unwrap_or(vec![]), // Rule #3
-            routes: c.routes.map(|arr| arr.into_iter().map(|i| i.into()).collect()).unwrap_or(vec![]), // Rule #3
+            routes: c.routes.map(|rl| rl.into()), // Rule #2 for type RoutehintList?
             extra: c.extra.map(|arr| arr.into_iter().map(|i| i.into()).collect()).unwrap_or(vec![]), // Rule #3
         }
     }
@@ -4195,19 +4169,6 @@ impl From<pb::DecodeFallbacks> for responses::DecodeFallbacks {
 }
 
 #[allow(unused_variables,deprecated)]
-impl From<pb::DecodeRoutes> for responses::DecodeRoutes {
-    fn from(c: pb::DecodeRoutes) -> Self {
-        Self {
-            pubkey: c.pubkey.map(|v| PublicKey::from_slice(&v).unwrap()), // Rule #1 for type pubkey?
-            short_channel_id: c.short_channel_id.map(|v| cln_rpc::primitives::ShortChannelId::from_str(&v).unwrap()), // Rule #1 for type short_channel_id?
-            fee_base_msat: c.fee_base_msat.map(|a| a.into()), // Rule #1 for type msat?
-            fee_proportional_millionths: c.fee_proportional_millionths, // Rule #1 for type u32?
-            cltv_expiry_delta: c.cltv_expiry_delta, // Rule #1 for type u32?
-        }
-    }
-}
-
-#[allow(unused_variables,deprecated)]
 impl From<pb::DecodeExtra> for responses::DecodeExtra {
     fn from(c: pb::DecodeExtra) -> Self {
         Self {
@@ -4298,7 +4259,7 @@ impl From<pb::DecodeResponse> for responses::DecodeResponse {
             min_final_cltv_expiry: c.min_final_cltv_expiry, // Rule #1 for type u32?
             payment_secret: c.payment_secret.map(|v| v.try_into().unwrap()), // Rule #1 for type secret?
             payment_metadata: c.payment_metadata.map(|v| hex::encode(v)), // Rule #1 for type hex?
-            routes: Some(c.routes.into_iter().map(|s| s.into()).collect()), // Rule #4
+            routes: c.routes.map(|rl| rl.into()), // Rule #1 for type RoutehintList?
             extra: Some(c.extra.into_iter().map(|s| s.into()).collect()), // Rule #4
             unique_id: c.unique_id, // Rule #1 for type string?
             version: c.version, // Rule #1 for type string?
@@ -4317,19 +4278,6 @@ impl From<pb::DecodepayFallbacks> for responses::DecodepayFallbacks {
             item_type: c.item_type.map(|v| v.try_into().unwrap()),
             addr: c.addr, // Rule #1 for type string?
             hex: c.hex.map(|v| hex::encode(v)), // Rule #1 for type hex?
-        }
-    }
-}
-
-#[allow(unused_variables,deprecated)]
-impl From<pb::DecodepayRoutes> for responses::DecodepayRoutes {
-    fn from(c: pb::DecodepayRoutes) -> Self {
-        Self {
-            pubkey: c.pubkey.map(|v| PublicKey::from_slice(&v).unwrap()), // Rule #1 for type pubkey?
-            short_channel_id: c.short_channel_id.map(|v| cln_rpc::primitives::ShortChannelId::from_str(&v).unwrap()), // Rule #1 for type short_channel_id?
-            fee_base_msat: c.fee_base_msat.map(|a| a.into()), // Rule #1 for type msat?
-            fee_proportional_millionths: c.fee_proportional_millionths, // Rule #1 for type u32?
-            cltv_expiry_delta: c.cltv_expiry_delta, // Rule #1 for type u32?
         }
     }
 }
@@ -4362,7 +4310,7 @@ impl From<pb::DecodepayResponse> for responses::DecodepayResponse {
             features: c.features.map(|v| hex::encode(v)), // Rule #1 for type hex?
             payment_metadata: c.payment_metadata.map(|v| hex::encode(v)), // Rule #1 for type hex?
             fallbacks: Some(c.fallbacks.into_iter().map(|s| s.into()).collect()), // Rule #4
-            routes: Some(c.routes.into_iter().map(|s| s.into()).collect()), // Rule #4
+            routes: c.routes.map(|rl| rl.into()), // Rule #1 for type RoutehintList?
             extra: Some(c.extra.into_iter().map(|s| s.into()).collect()), // Rule #4
         }
     }

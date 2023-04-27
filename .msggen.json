@@ -450,7 +450,7 @@
             "Decode.payment_metadata": 67,
             "Decode.payment_secret": 66,
             "Decode.restrictions[]": 73,
-            "Decode.routes[][]": 68,
+            "Decode.routes": 68,
             "Decode.string": 72,
             "Decode.type": 1,
             "Decode.unique_id": 70,
@@ -484,13 +484,6 @@
         "DecodeRestrictions": {
             "Decode.restrictions[].alternatives[]": 1,
             "Decode.restrictions[].summary": 2
-        },
-        "DecodeRoutes": {
-            "Decode.routes[][].cltv_expiry_delta": 5,
-            "Decode.routes[][].fee_base_msat": 3,
-            "Decode.routes[][].fee_proportional_millionths": 4,
-            "Decode.routes[][].pubkey": 1,
-            "Decode.routes[][].short_channel_id": 2
         },
         "DecodeUnknown_invoice_request_tlvs": {
             "Decode.unknown_invoice_request_tlvs[].length": 2,
@@ -535,15 +528,8 @@
             "DecodePay.payment_hash": 6,
             "DecodePay.payment_metadata": 13,
             "DecodePay.payment_secret": 11,
-            "DecodePay.routes[][]": 15,
+            "DecodePay.routes": 15,
             "DecodePay.signature": 7
-        },
-        "DecodepayRoutes": {
-            "DecodePay.routes[][].cltv_expiry_delta": 5,
-            "DecodePay.routes[][].fee_base_msat": 3,
-            "DecodePay.routes[][].fee_proportional_millionths": 4,
-            "DecodePay.routes[][].pubkey": 1,
-            "DecodePay.routes[][].short_channel_id": 2
         },
         "DeldatastoreRequest": {
             "DelDatastore.generation": 2,
@@ -2126,27 +2112,7 @@
             "added": "v23.05",
             "deprecated": false
         },
-        "Decode.routes[][]": {
-            "added": "v23.05",
-            "deprecated": false
-        },
-        "Decode.routes[][].cltv_expiry_delta": {
-            "added": "v23.05",
-            "deprecated": false
-        },
-        "Decode.routes[][].fee_base_msat": {
-            "added": "v23.05",
-            "deprecated": false
-        },
-        "Decode.routes[][].fee_proportional_millionths": {
-            "added": "v23.05",
-            "deprecated": false
-        },
-        "Decode.routes[][].pubkey": {
-            "added": "v23.05",
-            "deprecated": false
-        },
-        "Decode.routes[][].short_channel_id": {
+        "Decode.routes": {
             "added": "v23.05",
             "deprecated": false
         },
@@ -2386,27 +2352,7 @@
             "added": "v23.05",
             "deprecated": false
         },
-        "DecodePay.routes[][]": {
-            "added": "v23.05",
-            "deprecated": false
-        },
-        "DecodePay.routes[][].cltv_expiry_delta": {
-            "added": "v23.05",
-            "deprecated": false
-        },
-        "DecodePay.routes[][].fee_base_msat": {
-            "added": "v23.05",
-            "deprecated": false
-        },
-        "DecodePay.routes[][].fee_proportional_millionths": {
-            "added": "v23.05",
-            "deprecated": false
-        },
-        "DecodePay.routes[][].pubkey": {
-            "added": "v23.05",
-            "deprecated": false
-        },
-        "DecodePay.routes[][].short_channel_id": {
+        "DecodePay.routes": {
             "added": "v23.05",
             "deprecated": false
         },

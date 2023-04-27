@@ -3747,7 +3747,7 @@ pub mod responses {
 	#[derive(Clone, Debug, Deserialize, Serialize)]
 	pub struct DecodeUnknown_offer_tlvs {
 	    #[serde(skip_serializing_if = "Option::is_none")]
-	    pub type: Option<u64>,
+	    pub item_type: Option<u64>,
 	    #[serde(skip_serializing_if = "Option::is_none")]
 	    pub length: Option<u64>,
 	    #[serde(skip_serializing_if = "Option::is_none")]
@@ -3757,7 +3757,7 @@ pub mod responses {
 	#[derive(Clone, Debug, Deserialize, Serialize)]
 	pub struct DecodeUnknown_invoice_request_tlvs {
 	    #[serde(skip_serializing_if = "Option::is_none")]
-	    pub type: Option<u64>,
+	    pub item_type: Option<u64>,
 	    #[serde(skip_serializing_if = "Option::is_none")]
 	    pub length: Option<u64>,
 	    #[serde(skip_serializing_if = "Option::is_none")]
@@ -3809,7 +3809,7 @@ pub mod responses {
 	#[derive(Clone, Debug, Deserialize, Serialize)]
 	pub struct DecodeUnknown_invoice_tlvs {
 	    #[serde(skip_serializing_if = "Option::is_none")]
-	    pub type: Option<u64>,
+	    pub item_type: Option<u64>,
 	    #[serde(skip_serializing_if = "Option::is_none")]
 	    pub length: Option<u64>,
 	    #[serde(skip_serializing_if = "Option::is_none")]
@@ -3820,20 +3820,6 @@ pub mod responses {
 	pub struct DecodeFallbacks {
 	    #[serde(skip_serializing_if = "Option::is_none")]
 	    pub warning_invoice_fallbacks_version_invalid: Option<String>,
-	}
-
-	#[derive(Clone, Debug, Deserialize, Serialize)]
-	pub struct DecodeRoutes {
-	    #[serde(skip_serializing_if = "Option::is_none")]
-	    pub pubkey: Option<PublicKey>,
-	    #[serde(skip_serializing_if = "Option::is_none")]
-	    pub short_channel_id: Option<ShortChannelId>,
-	    #[serde(skip_serializing_if = "Option::is_none")]
-	    pub fee_base_msat: Option<Amount>,
-	    #[serde(skip_serializing_if = "Option::is_none")]
-	    pub fee_proportional_millionths: Option<u32>,
-	    #[serde(skip_serializing_if = "Option::is_none")]
-	    pub cltv_expiry_delta: Option<u32>,
 	}
 
 	#[derive(Clone, Debug, Deserialize, Serialize)]
@@ -3988,8 +3974,8 @@ pub mod responses {
 	    pub payment_secret: Option<Secret>,
 	    #[serde(skip_serializing_if = "Option::is_none")]
 	    pub payment_metadata: Option<String>,
-	    #[serde(skip_serializing_if = "crate::is_none_or_empty")]
-	    pub routes: Option<Vec<Vec<DecodeRoutes>>>,
+	    #[serde(skip_serializing_if = "Option::is_none")]
+	    pub routes: Option<RoutehintList>,
 	    #[serde(skip_serializing_if = "crate::is_none_or_empty")]
 	    pub extra: Option<Vec<DecodeExtra>>,
 	    #[serde(skip_serializing_if = "Option::is_none")]
@@ -4053,20 +4039,6 @@ pub mod responses {
 	}
 
 	#[derive(Clone, Debug, Deserialize, Serialize)]
-	pub struct DecodepayRoutes {
-	    #[serde(skip_serializing_if = "Option::is_none")]
-	    pub pubkey: Option<PublicKey>,
-	    #[serde(skip_serializing_if = "Option::is_none")]
-	    pub short_channel_id: Option<ShortChannelId>,
-	    #[serde(skip_serializing_if = "Option::is_none")]
-	    pub fee_base_msat: Option<Amount>,
-	    #[serde(skip_serializing_if = "Option::is_none")]
-	    pub fee_proportional_millionths: Option<u32>,
-	    #[serde(skip_serializing_if = "Option::is_none")]
-	    pub cltv_expiry_delta: Option<u32>,
-	}
-
-	#[derive(Clone, Debug, Deserialize, Serialize)]
 	pub struct DecodepayExtra {
 	    #[serde(skip_serializing_if = "Option::is_none")]
 	    pub tag: Option<String>,
@@ -4104,8 +4076,8 @@ pub mod responses {
 	    pub payment_metadata: Option<String>,
 	    #[serde(skip_serializing_if = "crate::is_none_or_empty")]
 	    pub fallbacks: Option<Vec<DecodepayFallbacks>>,
-	    #[serde(skip_serializing_if = "crate::is_none_or_empty")]
-	    pub routes: Option<Vec<Vec<DecodepayRoutes>>>,
+	    #[serde(skip_serializing_if = "Option::is_none")]
+	    pub routes: Option<RoutehintList>,
 	    #[serde(skip_serializing_if = "crate::is_none_or_empty")]
 	    pub extra: Option<Vec<DecodepayExtra>>,
 	}
