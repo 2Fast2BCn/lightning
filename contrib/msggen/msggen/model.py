@@ -6,9 +6,7 @@ logger = logging.getLogger(__name__)
 
 
 def path2type(path):
-    typename = ""
-    for s in path.replace("[]", "").split("."):
-        typename += s[0].upper() + s[1:]
+    typename = "".join([s.capitalize() for s in path.replace("[]", "").split(".")])
     return typename
 
 

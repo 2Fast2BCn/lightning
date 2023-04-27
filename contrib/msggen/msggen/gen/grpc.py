@@ -56,6 +56,14 @@ overrides = {
     'ListClosedChannels.closedchannels[].channel_type.names[]': "string",
 }
 
+# Manual overrides for some of the auto-generated types for paths
+name_overrides = {
+    'Decode.offer_paths[].path[]': "DecodeOfferPathsPath",
+    'Decode.offer_recurrence.paywindow': "DecodeOfferRecurrencePaywindow",
+    'Decode.invoice_paths[].path[]':  "DecodeInvoicePathsPath",
+    'Decode.invoice_paths[].payinfo':  "DecodeInvoicePathsPayinfo",
+}
+
 
 method_name_overrides = {
     "Connect": "ConnectPeer",
@@ -277,6 +285,7 @@ class GrpcConverterGenerator(IGenerator):
                 self.generate_composite(prefix, f)
 
         pbname = self.to_camel_case(field.typename)
+        pbname = name_overrides.get(field.path, pbname)
         # And now we can convert the current field:
         self.write(f"""\
         #[allow(unused_variables,deprecated)]
@@ -381,10 +390,7 @@ class GrpcConverterGenerator(IGenerator):
         components = snake_str.split('_')
         # We capitalize the first letter of each component except the first one
         # with the 'title' method and join them together.
-        result = components[0]
-        for x in components[1:]:
-            result += x[0].upper() + x[1:]
-        return result
+        return components[0] + ''.join(x.title() for x in components[1:])
 
     def generate_requests(self, service):
         for meth in service.methods:
@@ -445,6 +451,7 @@ class GrpcUnconverterGenerator(GrpcConverterGenerator):
                 self.generate_composite(prefix, f)
 
         pbname = self.to_camel_case(field.typename)
+        pbname = name_overrides.get(field.path, pbname)
         # And now we can convert the current field:
         self.write(f"""\
         #[allow(unused_variables,deprecated)]
